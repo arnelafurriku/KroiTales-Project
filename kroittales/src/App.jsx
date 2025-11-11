@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import NavBar from "./components/NavBar.jsx";
 import Home from './pages/Home';
 import About from './pages/About';
+import Builder from './pages/Builder';
 
  function App() {
   return (
