@@ -1,18 +1,16 @@
 import Builder from "./Builder.jsx";
-import "../index.css";
+import Library from "./Library.jsx";
 
 function Home() {
   return (
-    <section>
-      <header>
-        <h2>Hey Kiddo, Let’s Build Your Story Together!</h2>
-        <p>
-          Choose your characters and settings below to co-create bedtime stories
-          that spark imagination and fun!
-        </p>
+    <section className="container">
+      <header className="home-header">
+        <h2 className="home-title">Hey Kiddo, Let’s Build Your Story Together!</h2>
       </header>
-
-      <Builder />
+      <div className="builder-grid">
+        <Builder />
+      </div>
+      <Library />
     </section>
   );
 }

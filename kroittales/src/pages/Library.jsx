@@ -1,22 +1,18 @@
-import { sampleStories } from "../mockData.js";
-import StoryDetail from "../components/StoryDetail.jsx";
+import { sampleStories } from "../data/stories.js";
 
-export default function Library() {
+function Library() {
   return (
-    <section>
-      <header>
-        <h2>Library</h2>
-        <p>Saved stories will appear here. Showing samples for now.</p>
-      </header>
-
-      <ul>
-        {sampleStories.map(s => (
+    <div className="panel" style={{ marginTop: 24 }}>
+      <h3 className="story-title" style={{ textAlign: "left" }}>Saved Stories</h3>
+      <ul className="list">
+        {sampleStories.map((s) => (
           <li key={s.id}>
-            <h3>{s.title}</h3>
-            <StoryDetail storyText={s.text} />
+            <h4>{s.title}</h4>
+            <p style={{ margin: 0 }}>{s.text}</p>
           </li>
         ))}
       </ul>
-    </section>
+    </div>
   );
 }
+export default Library;

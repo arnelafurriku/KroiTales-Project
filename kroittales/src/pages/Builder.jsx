@@ -1,38 +1,72 @@
-import "./Builder.css";
-
 function Builder() {
   return (
-    <div className="builder-wrapper">
-      <div className="builder-panel">
-        <label>Character</label>
-        <select><option>Kroi</option></select>
+    <>
+      {/* Left panel: form */}
+      <div className="panel">
+        <div className="form-row">
+          <label>Character</label>
+          <select defaultValue="Kroi" disabled>
+            <option>Kroi</option>
+            <option>Luna</option>
+            <option>Beni the Brave</option>
+            <option>Ari the Fox</option>
+          </select>
+        </div>
 
-        <label>Sidekick</label>
-        <select><option>Spot</option></select>
+        <div className="form-row">
+          <label>Sidekick</label>
+          <select defaultValue="Spot the Puppy" disabled>
+            <option>Spot the Puppy</option>
+            <option>Milo the Robot</option>
+            <option>Flappy the Bird</option>
+          </select>
+        </div>
 
-        <label>Setting</label>
-        <select><option>Forest</option></select>
+        <div className="form-row">
+          <label>Setting</label>
+          <select defaultValue="enchanted forest" disabled>
+            <option>enchanted forest</option>
+            <option>space station</option>
+            <option>undersea city</option>
+            <option>grandma's garden</option>
+          </select>
+        </div>
 
-        <label>Action</label>
-        <select><option>Help a friend</option></select>
+        <div className="form-row">
+          <label>Action</label>
+          <select defaultValue="help a friend" disabled>
+            <option>solve a mystery</option>
+            <option>help a friend</option>
+            <option>discover a secret door</option>
+            <option>fly to the moon</option>
+          </select>
+        </div>
 
-        <button>Generate Story</button>
+        <div className="btn-row">
+          <button className="btn" disabled>Generate Story</button>
+          <button className="btn" disabled>Save Story</button>
+        </div>
 
-        <input placeholder="Notes/tags" />
-        <button>Save Story</button>
+        <div className="form-row">
+          <label>Notes / Tags</label>
+          <input placeholder="e.g., bedtime, space, Albanian" disabled />
+        </div>
 
-        <h3>Saved Stories</h3>
-        <input placeholder="Story Title" />
-        <button>Delete</button>
+        <h3 style={{ marginTop: 16 }}>Saved Stories</h3>
+        <input placeholder="Story Title" disabled />
+        <button className="btn delete" disabled>Delete</button>
       </div>
 
-      <div className="story-box">
-        <h3>Your Story</h3>
-        <textarea readOnly value="Once Upon A Time..." />
-        <button>Read Aloud</button>
-        <button>Save</button>
+      {/* Right panel: story preview */}
+      <div className="panel">
+        <h3 className="story-title">Your Story</h3>
+        <textarea className="story-text" readOnly value="Once upon a time..." />
+        <div className="story-actions">
+          <button className="btn" disabled>Read Aloud</button>
+          <button className="btn" disabled>Save</button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 export default Builder;
