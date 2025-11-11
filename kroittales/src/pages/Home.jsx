@@ -1,11 +1,19 @@
-import { Link } from "react-router-dom";
+import Builder from "./Builder.jsx";
+import "../index.css";
 
-export default function Home() {
+function Home() {
   return (
     <section>
       <header>
-        <p>Hey Kiddo, lets build your story together!</p>
+        <h2>Hey Kiddo, Let’s Build Your Story Together!</h2>
+        <p>
+          Choose your characters and settings below to co-create bedtime stories
+          that spark imagination and fun!
+        </p>
       </header>
+
+      <Builder />
     </section>
   );
 }
+export default Home;
