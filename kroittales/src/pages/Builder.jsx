@@ -1,8 +1,7 @@
 function Builder() {
   return (
     <>
-      {/* Left panel: form */}
-      <div className="panel">
+      <div className="panel panel-left">
         <div className="form-row">
           <label>Character</label>
           <select defaultValue="Kroi" disabled>
@@ -42,23 +41,20 @@ function Builder() {
           </select>
         </div>
 
-        <div className="btn-row">
+        <div className="btn-center">
           <button className="btn" disabled>Generate Story</button>
-          <button className="btn" disabled>Save Story</button>
         </div>
 
         <div className="form-row">
           <label>Notes / Tags</label>
           <input placeholder="e.g., bedtime, space, Albanian" disabled />
         </div>
-
-        <h3 style={{ marginTop: 16 }}>Saved Stories</h3>
-        <input placeholder="Story Title" disabled />
-        <button className="btn delete" disabled>Delete</button>
+        <div className="btn-center">
+          <button className="btn" disabled>Save Story</button>
+        </div>
       </div>
 
-      {/* Right panel: story preview */}
-      <div className="panel">
+      <div className="panel panel-right">
         <h3 className="story-title">Your Story</h3>
         <textarea className="story-text" readOnly value="Once upon a time..." />
         <div className="story-actions">
