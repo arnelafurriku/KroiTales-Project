@@ -1,12 +1,17 @@
-import { Link } from "react-router-dom";
+import Builder from "./Builder.jsx";
+import Library from "./Library.jsx";
 
-export default function Home() {
+function Home() {
   return (
-    <section>
-      <header>
-        <h2>KroiTales</h2>
-        <p>Hey Kiddo, lets build your story together!</p>
+    <section className="container">
+      <header className="home-header">
+        <h2 className="home-title">Hey Kiddo, Let’s Build Your Story Together!</h2>
       </header>
+      <div className="builder-grid">
+        <Builder />
+      </div>
+      <Library />
     </section>
   );
 }
+export default Home;

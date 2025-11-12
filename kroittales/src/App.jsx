@@ -17,5 +17,4 @@ import About from './pages/About';
     </div>
   );
 }
-
 export default App;

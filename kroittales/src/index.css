@@ -1,0 +1,299 @@
+:root {
+  --primary: #0C5270;
+  --text: #0C5270;
+  --white: #ffffff;
+  --panel: #E6EBEF;
+  --panel-alt: #F4F7F9;
+  --radius: 12px;
+
+  --font-head: 'Aclonica', sans-serif;
+  --font-body: 'Poppins', sans-serif;
+}
+
+* { box-sizing: border-box }
+
+html, body, #root { height: 100% }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--white);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* ---------- NavBar ---------- */
+header nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header h1 a,
+.navbar__brand {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 28px;
+  color: var(--primary);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+nav ul,
+.navbar__links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+nav a,
+.navbar__link {
+  color: var(--primary);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+nav a:hover,
+.navbar__link:hover { text-decoration: underline }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2rem;
+  border-bottom: 1px solid #d8dee2;
+}
+
+/* ---------- Home ---------- */
+.home-header { 
+  margin: 28px 0 8px; 
+  text-align: center;           /* center title + subtitle */
+}
+
+.home-title {
+  font-family: var(--font-head);
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 22px;
+  margin: 0 0 6px;
+  display: block;               /* ensures proper centering */
+}
+
+
+/* ---------- Two-column builder ---------- */
+.builder-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .builder-grid { grid-template-columns: 1fr }
+}
+
+/* Panels */
+.panel {
+  background: var(--panel);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* ---------- Form controls ---------- */
+.form-row { margin-bottom: 12px }
+
+label {
+  display: block;
+  font-weight: 600;
+  margin: 6px 0;
+}
+
+select,
+input,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cfd8df;
+  border-radius: 10px;
+  background: var(--white);
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+/* ---------- Buttons (base) ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* will use it later if needed */
+/*.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+} */ 
+
+/* Default two-button rows (fallback) */
+.btn-row,
+.story-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+/* ---------- Figma-accurate layout ---------- */
+/* Left panel: single centered buttons */
+.btn-center {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+.btn-center .btn {
+  min-width: 160px;           /* tweak 160–200px if needed */
+}
+
+/* Saved Stories: right-aligned small Delete */
+.saved-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/* Right panel: stacked, centered buttons below textarea */
+.panel-right .story-actions {
+  display: flex;              /* override any grid */
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+.panel-right .story-actions .btn {
+  min-width: 180px;
+}
+
+/* Only needed if an old extra row might exist; safe to keep, but optional */
+.panel-right .btn-row { display: none; }
+
+/* Saved Stories: input + Delete (single definition) */
+.panel-saved .saved-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;    /* change to flex-start if you prefer left align */
+  gap: 12px;
+}
+.panel-saved .saved-row input {
+  flex: 0 0 70%;              /* about 70% width */
+  max-width: 400px;
+  min-width: 220px;
+}
+.panel-saved .saved-row .btn.delete {
+  background: #0C5270;
+  color: #fff;
+  border: 0;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  min-width: auto;
+}
+
+/* ---------- Story Preview ---------- */
+.story-title {
+  font-family: var(--font-head);
+  font-weight: 600;
+  text-align: center;
+  margin: 0 0 10px;
+  color: var(--primary);
+}
+
+.story-text {
+  min-height: 140px;
+  border: 2px solid #c7d4dc;
+  margin-bottom: 8px;         /* space above buttons */
+}
+
+/* ---------- Saved stories list ---------- */
+.list {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list li {
+  background: var(--panel-alt);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-top: 10px;
+}
+
+.list h4 {
+  margin: 0 0 6px;
+  color: var(--primary);
+}
+
+/* Delete button visual */
+.btn.delete {
+  background: #0C5270;
+  color: #fff;
+  border: 0;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  min-width: auto;
+}
+/* ===== About page (Figma look) ===== */
+.about-title {
+  font-family: var(--font-head);
+  color: var(--primary);
+  font-size: 40px;           /* matches screenshot scale */
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 24px 0 16px;
+}
+
+.about-lead {
+  max-width: 900px;
+  margin: 0 0 18px;
+  color: rgba(12, 82, 112, 0.9); /* softer blue body text */
+  font-size: 16px;
+}
+
+.about-sub {
+  font-family: var(--font-head);
+  color: var(--primary);
+  font-size: 18px;
+  margin: 14px 0 6px;
+}
+
+.about-steps {
+  list-style: none;          /* no bullets (like your Figma) */
+  padding-left: 2rem;        /* slight indent */
+  margin: 0;
+  color: rgba(12, 82, 112, 0.9);
+}
+
+.about-steps li {
+  margin: 4px 0;
+}

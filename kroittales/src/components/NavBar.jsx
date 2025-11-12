@@ -1,16 +1,18 @@
-import { Link, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router";
 
-function NavBar() {
+export default function NavBar() {
+  const navigate = useNavigate();
+  const go = (e, to) => { e.preventDefault(); navigate(to); };
+
   return (
     <header>
-      <nav aria-label="Primary">
-        <h1><Link to="/">KroiTales</Link></h1>
-        <ul>
-          <li><NavLink to="/">Home</NavLink></li>
-          <li><NavLink to="/about">About</NavLink></li>
+      <nav className="navbar" aria-label="Primary">
+        <a href="#" className="navbar__brand" onClick={(e) => go(e, "/")}>KroiTales</a>
+        <ul className="navbar__links">
+          <li><a href="#" className="navbar__link" onClick={(e) => go(e, "/")}>Home</a></li>
+          <li><a href="#" className="navbar__link" onClick={(e) => go(e, "/about")}>About</a></li> {/* ← restored */}
         </ul>
       </nav>
     </header>
   );
 }
-export default NavBar;
