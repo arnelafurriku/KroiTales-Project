@@ -10,7 +10,7 @@ export default function NavBar() {
         <a href="#" className="navbar__brand" onClick={(e) => go(e, "/")}>KroiTales</a>
         <ul className="navbar__links">
           <li><a href="#" className="navbar__link" onClick={(e) => go(e, "/")}>Home</a></li>
-          <li><a href="#" className="navbar__link" onClick={(e) => go(e, "/about")}>About</a></li> {/* ← restored */}
+          <li><a href="#" className="navbar__link" onClick={(e) => go(e, "/about")}>About</a></li>
         </ul>
       </nav>
     </header>

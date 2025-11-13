@@ -154,12 +154,6 @@ textarea {
   cursor: pointer;
 }
 
-/* will use it later if needed */
-/*.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-} */
-
 .btn-row,
 .story-actions {
   display: grid;
@@ -238,7 +232,7 @@ textarea {
 }
 
 .story-text {
-  min-height: 140px;
+  min-height: 200px;
   border: 2px solid #c7d4dc;
   margin-bottom: 8px;
 }
