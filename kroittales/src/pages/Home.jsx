@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Builder from "../components/Builder.jsx";
 import Library from "../components/Library.jsx";
 import { characters, sidekicks, settings, actions } from "../data/stories.js";
@@ -15,14 +15,13 @@ function buildStory({ character, sidekick, setting, action, notes }) {
   const paragraphs = [intro, meetSidekick, middle, challenge, ending];
 
   if (notes && notes.trim()) {
-    paragraphs.push(
-      `Grown-up note: ${notes.trim()}`
-    );
+    paragraphs.push(`Grown-up note: ${notes.trim()}`);
   }
   return paragraphs.join("\n\n");
 }
 
 function Home() {
+
   const [builderState, setBuilderState] = useState({
     character: "",
     sidekick: "",
@@ -33,6 +32,29 @@ function Home() {
   });
 
   const [storyText, setStoryText] = useState("");
+  const [savedStories, setSavedStories] = useState([]);
+
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem("kroiTalesStories");
+      if (stored) {
+        setSavedStories(JSON.parse(stored));
+      }
+    } catch {
+      // helps start with an empty list
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(
+        "kroiTalesStories",
+        JSON.stringify(savedStories)
+      );
+    } catch {
+      //  helps start with an empty list
+    }
+  }, [savedStories]);
 
   function handleFieldChange(field, value) {
     setBuilderState(prev => ({
@@ -43,29 +65,69 @@ function Home() {
 
   function handleGenerateStory() {
     const text = buildStory(builderState);
-    if (!text) return;
+    if (!text) {
+      alert("Please pick a character, sidekick, setting and action first.");
+      return;
+    }
     setStoryText(text);
+  }
+
+  function handleSaveStory() {
+
+    let text = storyText.trim();
+
+    if (!text) {
+      const generated = buildStory(builderState);
+      if (!generated) {
+        alert("Please pick a character, sidekick, setting and action before saving.");
+        return;
+      }
+      text = generated;
+      setStoryText(generated);
+    }
+
+    const title = builderState.title.trim() || "Untitled story";
+
+    const newStory = {
+      id: Date.now().toString(),
+      title,
+      text,
+      notes: builderState.notes.trim(),
+    };
+
+    setSavedStories(prev => [newStory, ...prev]);
+  }
+
+  function handleDeleteAllStories() {
+    setSavedStories([]);
   }
 
   return (
     <section className="container">
       <header className="home-header">
         <h2 className="home-title">Hey Kiddo, Let’s Build Your Story Together!</h2>
+        <p className="home-sub">
+          Pick a character, sidekick, setting and action, then preview and save
+          your bedtime stories.
+        </p>
       </header>
-        <div className="builder-grid">
+
+      <div className="builder-grid">
         <Builder
           builderState={builderState}
           storyText={storyText}
           onFieldChange={handleFieldChange}
           onGenerate={handleGenerateStory}
+          onSaveStory={handleSaveStory}
           characters={characters}
           sidekicks={sidekicks}
           settings={settings}
           actions={actions}
         />
       </div>
-      <Library />
+      <Library stories={savedStories} onDeleteAll={handleDeleteAllStories} />
     </section>
   );
 }
+
 export default Home;

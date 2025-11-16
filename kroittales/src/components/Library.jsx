@@ -1,17 +1,19 @@
-function Library({ title, onTitleChange, stories, onDeleteAll }) {
+function Library({ stories, onDeleteAll }) {
   const hasStories = stories && stories.length > 0;
 
   return (
     <div className="panel panel-saved" style={{ marginTop: 24 }}>
-      <h3 className="story-title" style={{ textAlign: "center" }}>Saved Stories</h3>
+      <h3 className="story-title" style={{ textAlign: "center" }}> Saved Stories</h3>
 
-      <div className="saved-row">
-        <input
-          placeholder="Story Title"
-          value={title}
-          onChange={e => onTitleChange(e.target.value)}
-        />
-        <button className="btn delete" type="button" onClick={onDeleteAll} disabled={!hasStories}>Delete</button>
+      <div className="saved-actions">
+        <button
+          className="btn delete"
+          type="button"
+          onClick={onDeleteAll}
+          disabled={!hasStories}
+        >
+          Delete
+        </button>
       </div>
       <ul className="list" style={{ marginTop: 12 }}>
         {hasStories ? (

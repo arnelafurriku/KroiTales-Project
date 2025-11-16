@@ -1,5 +1,15 @@
-function Builder({ builderState, storyText, onFieldChange, onGenerate, characters, sidekicks, settings, actions }) {
-
+function Builder({
+  builderState,
+  storyText,
+  onFieldChange,
+  onGenerate,
+  onSaveStory,
+  onReadAloud,
+  characters,
+  sidekicks,
+  settings,
+  actions,
+}) {
   const { character, sidekick, setting, action, notes, title } = builderState;
 
   return (
@@ -56,6 +66,7 @@ function Builder({ builderState, storyText, onFieldChange, onGenerate, character
             ))}
           </select>
         </div>
+
         <div className="btn-center">
           <button className="btn" type="button" onClick={onGenerate}>Generate Story</button>
         </div>
@@ -79,7 +90,7 @@ function Builder({ builderState, storyText, onFieldChange, onGenerate, character
         </div>
 
         <div className="btn-center">
-          <button className="btn" type="button">Save Story</button>
+          <button className="btn" type="button" onClick={onSaveStory}>Save Story</button>
         </div>
       </div>
 
@@ -94,7 +105,7 @@ function Builder({ builderState, storyText, onFieldChange, onGenerate, character
         />
 
         <div className="story-actions">
-          <button className="btn" type="button">Read Aloud</button>
+          <button className="btn" type="button" onClick={onReadAloud}>Read Aloud</button>
         </div>
       </div>
     </>
