@@ -343,3 +343,36 @@ textarea {
     font-size: 24px;
   }
 }
+
+/* Footer  */
+.footer {
+  margin-top: 32px;
+  padding: 16px 24px;
+  border-top: 1px solid #d8dee2;
+  text-align: center;
+  background: #f7fafc;
+}
+
+.footer__brand {
+  margin: 0;
+  font-family: var(--font-head);  /* Aclonica */
+  color: var(--primary);          /* #0C5270 */
+  font-size: 1.1rem;
+}
+
+.footer__text {
+  margin: 4px 0 0;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--primary);
+}
+
+.footer__text a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer__text a:hover {
+  text-decoration: underline;
+}
