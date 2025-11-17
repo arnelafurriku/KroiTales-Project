@@ -19,20 +19,21 @@ function buildStory({ character, sidekick, setting, action, notes }) {
   }
   return paragraphs.join("\n\n");
 }
+const INITIAL_BUILDER_STATE = {
+  character: "",
+  sidekick: "",
+  setting: "",
+  action: "",
+  notes: "",
+  title: "",
+};
 
 function Home() {
 
-  const [builderState, setBuilderState] = useState({
-    character: "",
-    sidekick: "",
-    setting: "",
-    action: "",
-    notes: "",
-    title: "",
-  });
-
+  const [builderState, setBuilderState] = useState(INITIAL_BUILDER_STATE);
   const [storyText, setStoryText] = useState("");
   const [savedStories, setSavedStories] = useState([]);
+  const [selectedIds, setSelectedIds] = useState([]);
 
   useEffect(() => {
     try {
@@ -52,7 +53,7 @@ function Home() {
         JSON.stringify(savedStories)
       );
     } catch {
-      //  helps start with an empty list
+      // helps start with an empty list
     }
   }, [savedStories]);
 
@@ -76,6 +77,7 @@ function Home() {
 
     let text = storyText.trim();
 
+
     if (!text) {
       const generated = buildStory(builderState);
       if (!generated) {
@@ -96,20 +98,30 @@ function Home() {
     };
 
     setSavedStories(prev => [newStory, ...prev]);
+
+    setBuilderState(() => ({ ...INITIAL_BUILDER_STATE }));
+    setStoryText("");
   }
 
-  function handleDeleteAllStories() {
-    setSavedStories([]);
+  function handleToggleStorySelect(id) {
+    setSelectedIds(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    );
+  }
+
+  function handleDeleteSelectedStories() {
+    if (selectedIds.length === 0) return;
+
+    setSavedStories(prev =>
+      prev.filter(story => !selectedIds.includes(story.id))
+    );
+    setSelectedIds([]);
   }
 
   return (
     <section className="container">
       <header className="home-header">
         <h2 className="home-title">Hey Kiddo, Let’s Build Your Story Together!</h2>
-        <p className="home-sub">
-          Pick a character, sidekick, setting and action, then preview and save
-          your bedtime stories.
-        </p>
       </header>
 
       <div className="builder-grid">
@@ -125,7 +137,13 @@ function Home() {
           actions={actions}
         />
       </div>
-      <Library stories={savedStories} onDeleteAll={handleDeleteAllStories} />
+
+      <Library
+        stories={savedStories}
+        selectedIds={selectedIds}
+        onToggleSelect={handleToggleStorySelect}
+        onDeleteSelected={handleDeleteSelectedStories}
+      />
     </section>
   );
 }
