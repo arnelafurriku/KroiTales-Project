@@ -173,6 +173,28 @@ textarea {
   min-width: 160px;
 }
 
+/* Loading */
+.btn--loading {
+  opacity: 0.85;
+  cursor: wait;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-top-color: #ffffff;
+  display: inline-block;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /* Saved Stories */
 .saved-actions {
   display: flex;
@@ -341,10 +363,26 @@ textarea {
 
   .navbar__brand {
     font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
   }
 }
 
-/* Footer  */
+.navbar__logo {
+  height: 42px;
+  width: auto;
+}
+
+.navbar__brandText {
+  font-family: var(--font-head);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Footer */
 .footer {
   margin-top: 32px;
   padding: 16px 24px;
@@ -355,8 +393,8 @@ textarea {
 
 .footer__brand {
   margin: 0;
-  font-family: var(--font-head);  /* Aclonica */
-  color: var(--primary);          /* #0C5270 */
+  font-family: var(--font-head);
+  color: var(--primary);
   font-size: 1.1rem;
 }
 

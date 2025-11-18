@@ -9,6 +9,7 @@ function Builder({
   sidekicks,
   settings,
   actions,
+  isGenerating,
 }) {
   const { character, sidekick, setting, action, notes, title } = builderState;
 
@@ -68,7 +69,21 @@ function Builder({
         </div>
 
         <div className="btn-center">
-          <button className="btn" type="button" onClick={onGenerate}>Generate Story</button>
+          <button
+            className={`btn ${isGenerating ? "btn--loading" : ""}`}
+            type="button"
+            onClick={onGenerate}
+            disabled={isGenerating}
+          >
+            {isGenerating ? (
+              <>
+                <span className="spinner" aria-hidden="true" />
+                Generating...
+              </>
+            ) : (
+              "Generate Story"
+            )}
+          </button>
         </div>
 
         <div className="form-row">

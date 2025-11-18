@@ -34,6 +34,7 @@ function Home() {
   const [storyText, setStoryText] = useState("");
   const [savedStories, setSavedStories] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   useEffect(() => {
     try {
@@ -65,18 +66,28 @@ function Home() {
   }
 
   function handleGenerateStory() {
-    const text = buildStory(builderState);
-    if (!text) {
-      alert("Please pick a character, sidekick, setting and action first.");
-      return;
-    }
-    setStoryText(text);
+  if (
+    !builderState.character ||
+    !builderState.sidekick ||
+    !builderState.setting ||
+    !builderState.action
+  ) {
+    alert("Please pick a character, sidekick, setting and action first.");
+    return;
   }
 
+  setIsGenerating(true);
+  setStoryText("");
+
+  setTimeout(() => {
+    const text = buildStory(builderState);
+    setStoryText(text);
+    setIsGenerating(false);
+  }, 600);
+}
   function handleSaveStory() {
 
     let text = storyText.trim();
-
 
     if (!text) {
       const generated = buildStory(builderState);
@@ -135,6 +146,7 @@ function Home() {
           sidekicks={sidekicks}
           settings={settings}
           actions={actions}
+          isGenerating={isGenerating} 
         />
       </div>
 
