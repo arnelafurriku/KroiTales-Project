@@ -172,6 +172,16 @@ textarea {
 .btn-center .btn {
   min-width: 160px;
 }
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.icon-btn__icon {
+  display: inline-block;
+  transform: translateY(1px);
+}
 
 /* Loading */
 .btn--loading {

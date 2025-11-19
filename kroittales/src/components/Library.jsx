@@ -1,3 +1,5 @@
+import IconButton from "./IconButton.jsx";
+
 function Library({ stories, selectedIds, onToggleSelect, onDeleteSelected }) {
   const hasStories = stories && stories.length > 0;
   const hasSelected = selectedIds && selectedIds.length > 0;
@@ -9,15 +11,17 @@ function Library({ stories, selectedIds, onToggleSelect, onDeleteSelected }) {
       </h3>
 
       <div className="saved-actions">
-        <button
-          className="btn delete"
+        <IconButton
           type="button"
+          icon="🗑️"
+          className="delete"
           onClick={onDeleteSelected}
           disabled={!hasSelected}
         >
           Delete
-        </button>
+        </IconButton>
       </div>
+
 
       <ul className="list" style={{ marginTop: 12 }}>
         {hasStories ? (
