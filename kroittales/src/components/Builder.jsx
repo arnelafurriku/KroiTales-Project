@@ -1,3 +1,5 @@
+import IconButton from "./IconButton.jsx";
+
 function Builder({
   builderState,
   storyText,
@@ -5,6 +7,7 @@ function Builder({
   onGenerate,
   onSaveStory,
   onReadAloud,
+  onStopReadAloud,
   characters,
   sidekicks,
   settings,
@@ -20,11 +23,13 @@ function Builder({
           <label>Character</label>
           <select
             value={character}
-            onChange={e => onFieldChange("character", e.target.value)}
+            onChange={(e) => onFieldChange("character", e.target.value)}
           >
             <option value="">Pick a character</option>
-            {characters.map(c => (
-              <option key={c} value={c}>{c}</option>
+            {characters.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
             ))}
           </select>
         </div>
@@ -33,11 +38,13 @@ function Builder({
           <label>Sidekick</label>
           <select
             value={sidekick}
-            onChange={e => onFieldChange("sidekick", e.target.value)}
+            onChange={(e) => onFieldChange("sidekick", e.target.value)}
           >
             <option value="">Pick a sidekick</option>
-            {sidekicks.map(s => (
-              <option key={s} value={s}>{s}</option>
+            {sidekicks.map((s) => (
+              <option key={s} value={s}>
+                {s}
+              </option>
             ))}
           </select>
         </div>
@@ -46,11 +53,13 @@ function Builder({
           <label>Setting</label>
           <select
             value={setting}
-            onChange={e => onFieldChange("setting", e.target.value)}
+            onChange={(e) => onFieldChange("setting", e.target.value)}
           >
             <option value="">Pick a setting</option>
-            {settings.map(st => (
-              <option key={st} value={st}>{st}</option>
+            {settings.map((st) => (
+              <option key={st} value={st}>
+                {st}
+              </option>
             ))}
           </select>
         </div>
@@ -59,11 +68,13 @@ function Builder({
           <label>Action</label>
           <select
             value={action}
-            onChange={e => onFieldChange("action", e.target.value)}
+            onChange={(e) => onFieldChange("action", e.target.value)}
           >
             <option value="">Pick an action</option>
-            {actions.map(a => (
-              <option key={a} value={a}>{a}</option>
+            {actions.map((a) => (
+              <option key={a} value={a}>
+                {a}
+              </option>
             ))}
           </select>
         </div>
@@ -91,7 +102,7 @@ function Builder({
           <input
             placeholder="e.g., bedtime, space, Albanian"
             value={notes}
-            onChange={e => onFieldChange("notes", e.target.value)}
+            onChange={(e) => onFieldChange("notes", e.target.value)}
           />
         </div>
 
@@ -100,12 +111,14 @@ function Builder({
           <input
             placeholder="Give your story a title"
             value={title}
-            onChange={e => onFieldChange("title", e.target.value)}
+            onChange={(e) => onFieldChange("title", e.target.value)}
           />
         </div>
 
         <div className="btn-center">
-          <button className="btn" type="button" onClick={onSaveStory}>Save Story</button>
+          <button className="btn" type="button" onClick={onSaveStory}>
+            Save Story
+          </button>
         </div>
       </div>
 
@@ -120,7 +133,16 @@ function Builder({
         />
 
         <div className="story-actions">
-          <button className="btn" type="button" onClick={onReadAloud}>Read Aloud</button>
+          <IconButton type="button" icon="🔊" onClick={onReadAloud}>
+            Read Aloud
+          </IconButton>
+          <button
+            className="btn delete"
+            type="button"
+            onClick={onStopReadAloud}
+          >
+            Stop
+          </button>
         </div>
       </div>
     </>

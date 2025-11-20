@@ -11,11 +11,7 @@ export default function NavBar() {
   return (
     <header>
       <nav className="navbar" aria-label="Primary">
-        <a
-          href="#"
-          className="navbar__brand"
-          onClick={(e) => go(e, "/")}
-        >
+        <a href="#" className="navbar__brand" onClick={(e) => go(e, "/")}>
           <img
             src={logo}
             alt="KroiTales logo: moon with sleeping baby"
@@ -26,11 +22,7 @@ export default function NavBar() {
 
         <ul className="navbar__links">
           <li>
-            <a
-              href="#"
-              className="navbar__link"
-              onClick={(e) => go(e, "/")}
-            >
+            <a href="#" className="navbar__link" onClick={(e) => go(e, "/")}>
               Home
             </a>
           </li>

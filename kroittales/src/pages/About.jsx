@@ -4,8 +4,8 @@ function About() {
       <h2 className="about-title">About</h2>
 
       <p className="about-lead">
-        KroiTales is a kid-friendly React web app that helps parents and children
-        co-create short, personalized bedtime stories.
+        KroiTales is a kid-friendly React web app that helps parents and
+        children co-create short, personalized bedtime stories.
       </p>
 
       <h3 className="about-sub">How it works</h3>

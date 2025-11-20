@@ -3,6 +3,15 @@ import Builder from "../components/Builder.jsx";
 import Library from "../components/Library.jsx";
 import { characters, sidekicks, settings, actions } from "../data/stories.js";
 
+const INITIAL_BUILDER_STATE = {
+  character: "",
+  sidekick: "",
+  setting: "",
+  action: "",
+  notes: "",
+  title: "",
+};
+
 function buildStory({ character, sidekick, setting, action, notes }) {
   if (!character || !sidekick || !setting || !action) return "";
 
@@ -19,17 +28,8 @@ function buildStory({ character, sidekick, setting, action, notes }) {
   }
   return paragraphs.join("\n\n");
 }
-const INITIAL_BUILDER_STATE = {
-  character: "",
-  sidekick: "",
-  setting: "",
-  action: "",
-  notes: "",
-  title: "",
-};
 
 function Home() {
-
   const [builderState, setBuilderState] = useState(INITIAL_BUILDER_STATE);
   const [storyText, setStoryText] = useState("");
   const [savedStories, setSavedStories] = useState([]);
@@ -43,7 +43,7 @@ function Home() {
         setSavedStories(JSON.parse(stored));
       }
     } catch {
-      // helps start with an empty list
+      // ignore, start empty
     }
   }, []);
 
@@ -54,45 +54,47 @@ function Home() {
         JSON.stringify(savedStories)
       );
     } catch {
-      // helps start with an empty list
+      // ignore, start empty
     }
   }, [savedStories]);
 
   function handleFieldChange(field, value) {
-    setBuilderState(prev => ({
+    setBuilderState((prev) => ({
       ...prev,
       [field]: value,
     }));
   }
 
   function handleGenerateStory() {
-  if (
-    !builderState.character ||
-    !builderState.sidekick ||
-    !builderState.setting ||
-    !builderState.action
-  ) {
-    alert("Please pick a character, sidekick, setting and action first.");
-    return;
+    if (
+      !builderState.character ||
+      !builderState.sidekick ||
+      !builderState.setting ||
+      !builderState.action
+    ) {
+      alert("Please pick a character, sidekick, setting and action first.");
+      return;
+    }
+
+    setIsGenerating(true);
+    setStoryText("");
+
+    setTimeout(() => {
+      const text = buildStory(builderState);
+      setStoryText(text);
+      setIsGenerating(false);
+    }, 600);
   }
 
-  setIsGenerating(true);
-  setStoryText("");
-
-  setTimeout(() => {
-    const text = buildStory(builderState);
-    setStoryText(text);
-    setIsGenerating(false);
-  }, 600);
-}
   function handleSaveStory() {
-
     let text = storyText.trim();
 
     if (!text) {
       const generated = buildStory(builderState);
       if (!generated) {
-        alert("Please pick a character, sidekick, setting and action before saving.");
+        alert(
+          "Please pick a character, sidekick, setting and action before saving."
+        );
         return;
       }
       text = generated;
@@ -108,31 +110,70 @@ function Home() {
       notes: builderState.notes.trim(),
     };
 
-    setSavedStories(prev => [newStory, ...prev]);
+    setSavedStories((prev) => [newStory, ...prev]);
 
     setBuilderState(() => ({ ...INITIAL_BUILDER_STATE }));
     setStoryText("");
   }
 
   function handleToggleStorySelect(id) {
-    setSelectedIds(prev =>
-      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
   }
 
   function handleDeleteSelectedStories() {
-    if (selectedIds.length === 0) return;
+    if (selectedIds.length === 0) {
+      alert("Please select at least one story to delete.");
+      return;
+    }
 
-    setSavedStories(prev =>
-      prev.filter(story => !selectedIds.includes(story.id))
+    setSavedStories((prev) =>
+      prev.filter((story) => !selectedIds.includes(story.id))
     );
     setSelectedIds([]);
+  }
+
+  function handleLoadStory(id) {
+    const story = savedStories.find((s) => s.id === id);
+    if (!story) return;
+
+    setStoryText(story.text);
+  }
+
+  function handleReadAloud() {
+    const text = storyText.trim();
+    if (!text) {
+      alert("There is no story to read yet. Generate or load a story first.");
+      return;
+    }
+
+    if (!("speechSynthesis" in window)) {
+      alert("Sorry, Read Aloud is not supported in this browser.");
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.95;
+    utterance.pitch = 1;
+    utterance.lang = "en-US";
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function handleStopReadAloud() {
+    if (!("speechSynthesis" in window)) return;
+    window.speechSynthesis.cancel();
   }
 
   return (
     <section className="container">
       <header className="home-header">
-        <h2 className="home-title">Hey Kiddo, Let’s Build Your Story Together!</h2>
+        <h2 className="home-title">
+          Hey Kiddo, Let’s Build Your Story Together!
+        </h2>
       </header>
 
       <div className="builder-grid">
@@ -142,11 +183,13 @@ function Home() {
           onFieldChange={handleFieldChange}
           onGenerate={handleGenerateStory}
           onSaveStory={handleSaveStory}
+          onReadAloud={handleReadAloud}
+          onStopReadAloud={handleStopReadAloud}
           characters={characters}
           sidekicks={sidekicks}
           settings={settings}
           actions={actions}
-          isGenerating={isGenerating} 
+          isGenerating={isGenerating}
         />
       </div>
 
@@ -155,6 +198,7 @@ function Home() {
         selectedIds={selectedIds}
         onToggleSelect={handleToggleStorySelect}
         onDeleteSelected={handleDeleteSelectedStories}
+        onLoadStory={handleLoadStory}
       />
     </section>
   );

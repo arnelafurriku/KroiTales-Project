@@ -1,9 +1,4 @@
-function IconButton({
-  icon,
-  children,
-  className = "",
-  ...props
-}) {
+function IconButton({ icon, children, className = "", ...props }) {
   const classes = ["btn", "icon-btn", className].filter(Boolean).join(" ");
 
   return (
