@@ -1,23 +1,23 @@
 :root {
-  --primary: #0C5270;
-  --text: #0C5270;
+  --primary: #0c5270;
+  --text: #0c5270;
   --white: #ffffff;
-  --panel: #E6EBEF;
-  --panel-alt: #F4F7F9;
+  --panel: #e6ebef;
+  --panel-alt: #f4f7f9;
   --radius: 12px;
 
-  --font-head: 'Aclonica', sans-serif;
-  --font-body: 'Poppins', sans-serif;
+  --font-head: "Aclonica", sans-serif;
+  --font-body: "Poppins", sans-serif;
 }
 
 * {
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
 html,
 body,
 #root {
-  height: 100%
+  height: 100%;
 }
 
 body {
@@ -69,7 +69,7 @@ nav a,
 
 nav a:hover,
 .navbar__link:hover {
-  text-decoration: underline
+  text-decoration: underline;
 }
 
 .navbar {
@@ -113,7 +113,7 @@ nav a:hover,
 
 /*  Form controls */
 .form-row {
-  margin-bottom: 12px
+  margin-bottom: 12px;
 }
 
 label {
@@ -154,12 +154,6 @@ textarea {
   cursor: pointer;
 }
 
-/* will use it later if needed */
-/*.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-} */
-
 .btn-row,
 .story-actions {
   display: grid;
@@ -178,12 +172,37 @@ textarea {
 .btn-center .btn {
   min-width: 160px;
 }
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
 
-/* Saved Stories */
-.saved-actions {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 8px;
+.icon-btn__icon {
+  display: inline-block;
+  transform: translateY(1px);
+}
+
+/* Loading */
+.btn--loading {
+  opacity: 0.85;
+  cursor: wait;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-top-color: #ffffff;
+  display: inline-block;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Right panel */
@@ -195,13 +214,15 @@ textarea {
   margin-top: 10px;
 }
 
-.panel-right .story-actions .btn {
-  min-width: 180px;
+/* Saved Stories */
+.saved-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
 }
 
-/* Only needed if an old extra row might come up  */
-.panel-right .btn-row {
-  display: none;
+.panel-right .story-actions .btn {
+  min-width: 180px;
 }
 
 /* Saved Stories */
@@ -219,7 +240,7 @@ textarea {
 }
 
 .panel-saved .saved-row .btn.delete {
-  background: #0C5270;
+  background: #0c5270;
   color: #fff;
   border: 0;
   padding: 6px 12px;
@@ -231,14 +252,14 @@ textarea {
 /* Story Preview */
 .story-title {
   font-family: var(--font-head);
-  font-weight: 600;
+  font-weight: 100;
   text-align: center;
   margin: 0 0 10px;
   color: var(--primary);
 }
 
 .story-text {
-  min-height: 140px;
+  min-height: 200px;
   border: 2px solid #c7d4dc;
   margin-bottom: 8px;
 }
@@ -264,7 +285,7 @@ textarea {
 
 /* Delete button visual */
 .btn.delete {
-  background: #0C5270;
+  background: #0c5270;
   color: #fff;
   border: 0;
   padding: 6px 14px;
@@ -309,7 +330,12 @@ textarea {
 }
 
 /* Responsive Design Implementation */
-@media (max-width: 900px) {
+@media (max-width: 700px) {
+  .navbar {
+    flex-direction: column; 
+    align-items: flex-start;
+    padding: 0.8rem 1.2rem;
+  }
   .builder-grid {
     grid-template-columns: 1fr;
     gap: 20px;
@@ -347,5 +373,54 @@ textarea {
 
   .navbar__brand {
     font-size: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
   }
+}
+
+.navbar__logo {
+  height: 42px;
+  width: auto;
+}
+
+.navbar__brandText {
+  font-family: var(--font-head);
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Footer */
+.footer {
+  margin-top: 32px;
+  padding: 16px 24px;
+  border-top: 1px solid #d8dee2;
+  text-align: center;
+  background: #f7fafc;
+}
+
+.footer__brand {
+  margin: 0;
+  font-family: var(--font-head);
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.footer__text {
+  margin: 4px 0 0;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--primary);
+}
+
+.footer__text a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer__text a:hover {
+  text-decoration: underline;
 }

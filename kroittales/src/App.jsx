@@ -1,12 +1,13 @@
-import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import React from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import NavBar from "./components/NavBar.jsx";
-import Home from './pages/Home';
-import About from './pages/About';
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Footer from "./components/Footer.jsx";
 
- function App() {
+function App() {
   return (
-    <div>
+    <>
       <NavBar />
       <main>
         <Routes>
@@ -14,7 +15,9 @@ import About from './pages/About';
           <Route path="/about" element={<About />} />
         </Routes>
       </main>
-    </div>
+      <Footer />
+    </>
   );
 }
+
 export default App;
