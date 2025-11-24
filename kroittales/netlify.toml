@@ -1,4 +1,4 @@
 [build]
-base = “<kroittales>”
+base = “kroittales”
 command = “npm run build”
 publish = “dist”
